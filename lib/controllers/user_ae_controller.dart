@@ -36,6 +36,8 @@ class UserAEController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
+    // buat controllernya
     ctrUsername = TextEditingController();
     ctrPassword = TextEditingController();
     ctrNama = TextEditingController();
@@ -46,6 +48,7 @@ class UserAEController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    print("loaded data..");
     ctrUsername.text = "iwan";
     ctrPassword.text = "12345";
     ctrNama.text = "Styawan Saputra";
