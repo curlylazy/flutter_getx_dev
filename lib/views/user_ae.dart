@@ -41,12 +41,15 @@ class UserAE extends StatelessWidget {
                     }),
                 const SizedBox(height: 10),
                 TextField(
-                  controller: ctrUserAE.ctrPassword,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'masukkan password',
-                      labelText: 'Password'),
-                ),
+                    controller: ctrUserAE.ctrPassword,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'masukkan password',
+                        labelText: 'Password'),
+                    onChanged: (value) {
+                      ctrUserAE.UserData.password.value = value;
+                    }),
                 const SizedBox(height: 10),
                 TextField(
                     controller: ctrUserAE.ctrNama,

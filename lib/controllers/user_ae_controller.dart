@@ -107,7 +107,7 @@ class UserAEController extends GetxController {
   onClick_SaveData(BuildContext context) async {
     try {
       FocusScope.of(context).unfocus();
-      widgetLoader.showLoaderDialog(context, pesan: "Mohong tunggu..");
+      widgetLoader.showLoaderDialog(context, pesan: "Mohon tunggu..");
 
       var ijson = new IJson();
       ijson.newTable("DataHeader");
