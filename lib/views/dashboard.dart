@@ -21,9 +21,17 @@ class DashboardPage extends StatelessWidget {
         ]),
         Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [menuLogOut()])
+            children: [menuLogOut()]),
       ]),
     ));
+  }
+
+  Widget testContainer(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.4,
+      height: 100,
+      color: Colors.blueAccent[400],
+    );
   }
 
   Widget menuData(

@@ -4,13 +4,18 @@ class UserModel {
   String nama;
   String telepon;
   String alamat;
+  String email;
+  String jk;
 
-  UserModel(
-      {required this.username,
-      required this.password,
-      required this.nama,
-      required this.telepon,
-      required this.alamat});
+  UserModel({
+    required this.username,
+    required this.password,
+    required this.nama,
+    required this.telepon,
+    required this.jk,
+    required this.email,
+    required this.alamat,
+  });
 
   Map<String, dynamic> toJson() => {
         'username': username,
@@ -18,5 +23,7 @@ class UserModel {
         'nama': nama,
         'telepon': telepon,
         'alamat': alamat,
+        'jk': jk,
+        'email': email,
       };
 }
