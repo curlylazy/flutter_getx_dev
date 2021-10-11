@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class WidgetLoader {
+class WidgetLoader extends GetxController {
   showLoaderDialog(BuildContext context, {String pesan = ""}) {
     String msgPesan = "";
     if (pesan == "") {

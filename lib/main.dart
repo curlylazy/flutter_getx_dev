@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import './views/my_home_page.dart';
 import './views/user_ae.dart';
+import './views/user_list.dart';
 import './views/dashboard.dart';
 
 void main() {
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
       home: DashboardPage(),
       getPages: [
-        GetPage(name: '/', page: () => DashboardPage()),
+        GetPage(name: '/dashboard', page: () => DashboardPage()),
+        GetPage(name: '/user/list', page: () => UserList()),
         GetPage(name: '/user/ae', page: () => UserAE()),
       ],
     );

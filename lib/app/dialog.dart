@@ -27,13 +27,13 @@ class DialogAlert {
   confirmAlertDialog(BuildContext context, String title, String msg) {
     // set up the buttons
     Widget cancelButton = TextButton(
-      child: Text("Cancel"),
+      child: const Text("Cancel"),
       onPressed: () {
         Navigator.of(context).pop(false);
       },
     );
     Widget continueButton = TextButton(
-      child: Text("Ya"),
+      child: const Text("Ya"),
       onPressed: () {
         Navigator.of(context).pop(true);
       },

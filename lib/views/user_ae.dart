@@ -114,6 +114,26 @@ class UserAE extends StatelessWidget {
                             alignment: Alignment.centerLeft,
                             child: Text("Jenis Kelamin"),
                           ),
+                          // RadioListTile(
+                          //   value: "L",
+                          //   dense: true,
+                          //   groupValue: ctrUserAE.UserData.jk.value,
+                          //   title: const Text("Laki-laki"),
+                          //   activeColor: Colors.blue,
+                          //   onChanged: (value) {
+                          //     ctrUserAE.UserData.email.value = value.toString();
+                          //   },
+                          // ),
+                          // RadioListTile(
+                          //   value: "P",
+                          //   dense: true,
+                          //   groupValue: ctrUserAE.UserData.jk.value,
+                          //   title: const Text("Perempuan"),
+                          //   activeColor: Colors.blue,
+                          //   onChanged: (value) {
+                          //     ctrUserAE.UserData.jk.value = value.toString();
+                          //   },
+                          // ),
                           Obx(() => RadioListTile(
                                 value: "L",
                                 dense: true,
@@ -122,7 +142,7 @@ class UserAE extends StatelessWidget {
                                 title: const Text("Laki-laki"),
                                 activeColor: Colors.blue,
                                 onChanged: (value) {
-                                  ctrUserAE.UserData.email.value =
+                                  ctrUserAE.UserData.jk.value =
                                       value.toString();
                                   // ctrUserAE.UserData.update((_) {
                                   //   ctrUserAE.UserData.value.jk =
@@ -133,7 +153,6 @@ class UserAE extends StatelessWidget {
                           Obx(() => RadioListTile(
                                 value: "P",
                                 dense: true,
-                                // groupValue: ctrUserAE.UserData.value.jk,
                                 groupValue: ctrUserAE.UserData.jk.value,
                                 title: const Text("Perempuan"),
                                 activeColor: Colors.blue,

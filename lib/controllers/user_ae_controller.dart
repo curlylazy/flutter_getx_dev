@@ -122,7 +122,7 @@ class UserAEController extends GetxController {
 
       widgetLoader.hideDialog(context);
 
-      // print(res);
+      print(res);
       var resData = jsonDecode(res);
       bool status = resData['status'];
 

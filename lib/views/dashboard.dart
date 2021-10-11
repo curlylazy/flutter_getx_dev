@@ -13,7 +13,7 @@ class DashboardPage extends StatelessWidget {
         const SizedBox(height: 10),
         Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           menuData(context, 'Data User',
-              'assets/images/014-customer service.png', '/user/ae'),
+              'assets/images/014-customer service.png', '/user/list'),
           menuData(context, 'Data Pelanggan', 'assets/images/009-courier.png',
               '/pelanggan/list'),
           menuData(
