@@ -23,14 +23,16 @@ class UserList extends StatelessWidget {
                 child: IconButton(
                   onPressed: () {
                     FocusScope.of(context).unfocus();
-                    ctrUser.loadData(context);
+                    ctrUser.refreshPage();
                   },
                   icon: const Icon(Icons.refresh),
                 )),
             Padding(
                 padding: const EdgeInsets.only(right: 10.0),
                 child: IconButton(
-                  onPressed: () async {},
+                  onPressed: () async {
+                    Get.offNamed('/user/ae');
+                  },
                   icon: const Icon(Icons.add),
                 )),
           ],
@@ -52,7 +54,10 @@ class UserList extends StatelessWidget {
                   controller: ctrUser.ctrKatakunci,
                   decoration: InputDecoration(
                       suffixIcon: IconButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          FocusScope.of(context).unfocus();
+                          ctrUser.refreshPage();
+                        },
                         icon: const Icon(Icons.search),
                       ),
                       isDense: true,
@@ -67,7 +72,56 @@ class UserList extends StatelessWidget {
                   itemCount: ctrUser.dataUser.length,
                   itemBuilder: (context, index) {
                     return InkWell(
-                        onTap: () {},
+                        onTap: () async {
+                          Get.bottomSheet(Container(
+                              // height: 200,
+                              color: Colors.grey[300],
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                      padding: EdgeInsets.only(
+                                          top: 15, left: 15, bottom: 5),
+                                      child: Text(
+                                          "Data : ${ctrUser.dataUser[index]['username']}",
+                                          style: TextStyle(fontSize: 17))),
+                                  ListTile(
+                                    leading: Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ),
+                                    title: Text('Hapus',
+                                        style: TextStyle(color: Colors.red)),
+                                    onTap: () async {
+                                      Get.back();
+                                      await ctrUser.hapusData(index);
+                                    },
+                                  ),
+                                  ListTile(
+                                    leading: Icon(Icons.edit),
+                                    title: Text('Edit'),
+                                    onTap: () {
+                                      Get.back();
+                                      var parameters = <String, String>{
+                                        "mode": "**edit",
+                                        "data": ctrUser.dataUser[index]
+                                            ['kodeuser']
+                                      };
+                                      Get.offNamed("/user/ae",
+                                          parameters: parameters);
+                                    },
+                                  ),
+                                  ListTile(
+                                    leading: Icon(Icons.close),
+                                    title: Text('Cancel'),
+                                    onTap: () {
+                                      Get.back();
+                                    },
+                                  ),
+                                ],
+                              )));
+                        },
                         child: Card(
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,20 +157,18 @@ class UserList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    child: TextButton.icon(
-                        icon: Icon(Icons.arrow_left),
-                        label: Text('PREV'),
-                        onPressed: () {
-                          // _prevPage();
-                        }),
-                  ),
+                  TextButton.icon(
+                      icon: Icon(Icons.arrow_left),
+                      label: Text('PREV'),
+                      onPressed: () {
+                        ctrUser.prevPage();
+                      }),
                   Obx(
                     () => Container(
                       alignment: Alignment.center,
                       width: 100,
                       child: Text(
-                          "${ctrUser.currentpage.toString()} / ${ctrUser.totalpage..toString()}"),
+                          "${ctrUser.currentpage.toString()} / ${ctrUser.totalpage.toString()}"),
                     ),
                   ),
                   Directionality(
@@ -125,7 +177,7 @@ class UserList extends StatelessWidget {
                           icon: Icon(Icons.arrow_left),
                           label: Text('NEXT'),
                           onPressed: () {
-                            // _nextPage();
+                            ctrUser.nextPage();
                           }))
                 ],
               )),

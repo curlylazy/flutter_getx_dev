@@ -1,7 +1,12 @@
+// import 'dart:html';
+
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 
 class DialogAlert {
+  bool isShowProgressDialog = false;
+
   alertCustom(String msg, BuildContext context) {
     AlertDialog alert = AlertDialog(
       title: const Text("INFORMASI",
@@ -22,6 +27,59 @@ class DialogAlert {
         return alert;
       },
     );
+  }
+
+  confirmDialog(String judul, String msg) async {
+    return Get.dialog(
+        AlertDialog(
+          title: Text(judul, style: const TextStyle(fontSize: 12)),
+          content: Text(msg),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("CANCEL"),
+              style: TextButton.styleFrom(primary: Colors.red),
+              onPressed: () {
+                Get.back(result: false);
+              },
+            ),
+            TextButton(
+              child: const Text("YA"),
+              onPressed: () {
+                Get.back(result: true);
+              },
+            )
+          ],
+        ),
+        barrierDismissible: false);
+
+    // print(result);
+  }
+
+  proggresDialogShow({var pesan = ""}) {
+    isShowProgressDialog = true;
+    var msgPesan = "";
+    if (pesan == "") {
+      msgPesan = "Loading..";
+    } else {
+      msgPesan = pesan;
+    }
+
+    Get.dialog(AlertDialog(
+      content: Row(
+        children: [
+          const CircularProgressIndicator(),
+          Container(
+              margin: const EdgeInsets.only(left: 25), child: Text(msgPesan)),
+        ],
+      ),
+    ));
+  }
+
+  proggresDialogHide() {
+    if (isShowProgressDialog) {
+      isShowProgressDialog = false;
+      Get.back();
+    }
   }
 
   confirmAlertDialog(BuildContext context, String title, String msg) {
@@ -60,14 +118,29 @@ class DialogAlert {
     });
   }
 
-  toastCustom(String msg) {
-    Fluttertoast.showToast(
-        msg: msg,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.black,
-        textColor: Colors.white,
-        fontSize: 14.0);
+  snackbarError(String msg) {
+    Get.snackbar("KESALAHAN", msg,
+        snackPosition: SnackPosition.BOTTOM,
+        icon: const Icon(Icons.error, color: Colors.white),
+        backgroundColor: Colors.red,
+        margin: const EdgeInsets.all(15),
+        colorText: Colors.white,
+        duration: const Duration(seconds: 6),
+        isDismissible: true,
+        dismissDirection: SnackDismissDirection.HORIZONTAL,
+        forwardAnimationCurve: Curves.easeOutBack);
+  }
+
+  snackbarSuccess(String msg) {
+    Get.snackbar("INFORMASI", msg,
+        snackPosition: SnackPosition.BOTTOM,
+        icon: const Icon(Icons.error, color: Colors.white),
+        backgroundColor: Colors.green,
+        margin: const EdgeInsets.all(15),
+        colorText: Colors.white,
+        duration: const Duration(seconds: 6),
+        isDismissible: true,
+        dismissDirection: SnackDismissDirection.HORIZONTAL,
+        forwardAnimationCurve: Curves.easeOutBack);
   }
 }

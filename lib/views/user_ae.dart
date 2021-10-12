@@ -14,11 +14,11 @@ class UserAE extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("User Tambah"),
+          title: Obx(() => Text(ctrUserAE.judulPage.value)),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Get.back();
+              Get.offNamed("user/list");
             },
           ),
         ),
@@ -66,6 +66,7 @@ class UserAE extends StatelessWidget {
                 const SizedBox(height: 10),
                 TextField(
                     controller: ctrUserAE.ctrTelepon,
+                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'masukkan telepon',
@@ -175,7 +176,8 @@ class UserAE extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           // _saveData();
-                          ctrUserAE.onClick_SaveData(context);
+                          FocusScope.of(context).unfocus();
+                          ctrUserAE.onClick_SaveData();
                         },
                         child: const Text('SIMPAN',
                             style: TextStyle(color: Colors.white)),

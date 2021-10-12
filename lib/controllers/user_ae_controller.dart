@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 // import 'package:progress_dialog/progress_dialog.dart';
 
 import 'dart:convert';
-import 'dart:io';
 
 // import class function
 import 'package:flut_getx_dev/app/json.dart';
@@ -13,6 +12,7 @@ import 'package:flut_getx_dev/app/config.dart';
 import 'package:flut_getx_dev/app/stringfunction.dart';
 import 'package:flut_getx_dev/app/dialog.dart';
 import 'package:flut_getx_dev/app/ihttpclient.dart';
+import 'package:flut_getx_dev/app/ihttpclientgetx.dart';
 
 // model
 import 'package:flut_getx_dev/model/user_model.dart';
@@ -43,17 +43,21 @@ class UserAEController extends GetxController {
 
   var UserData = new UserModel2();
 
-  var ih = new IHttpClient();
+  var ih = new IHttpClientGetx();
   var dialogAlert = new DialogAlert();
   var stringFunction = new StringFunction();
   var widgetLoader = new WidgetLoader();
 
-  int actMode = AppConfig.APP_SAVE_MODE_ADD;
-  String actPage = "user/tambah";
+  var actMode = 0;
+  var actPage = "";
+  var judulPage = "".obs;
+  var id = "";
 
   @override
   void onInit() {
-    super.onInit();
+    print("loaded data..");
+    print(Get.parameters['mode']);
+    print(Get.parameters['data']);
 
     // buat controllernya
     ctrUsername = TextEditingController();
@@ -62,18 +66,37 @@ class UserAEController extends GetxController {
     ctrTelepon = TextEditingController();
     ctrAlamat = TextEditingController();
     ctrEmail = TextEditingController();
+
+    super.onInit();
   }
 
   @override
-  void onReady() {
-    super.onReady();
+  void onReady() async {
     print("loaded data..");
-    ctrUsername.text = "iwan";
-    ctrPassword.text = "12345";
-    ctrNama.text = "Styawan Saputra";
-    ctrTelepon.text = "08563735581";
-    ctrEmail.text = "curlylazy@gmail.com";
-    ctrAlamat.text = "Jalan Campuan Asri No IV D Blok BB No 67";
+    print(Get.parameters['mode']);
+    print(Get.parameters['data']);
+
+    var varMode = Get.parameters['mode'];
+    if (varMode == "**edit") {
+      actMode = AppConfig.APP_SAVE_MODE_EDIT;
+      actPage = "user/update";
+      id = Get.parameters['data'].toString();
+      judulPage.value = "User Edit";
+      await readData();
+    } else {
+      actMode = AppConfig.APP_SAVE_MODE_ADD;
+      judulPage.value = "User Tambah";
+      actPage = "user/tambah";
+    }
+
+    super.onReady();
+
+    // ctrUsername.text = "iwan";
+    // ctrPassword.text = "12345";
+    // ctrNama.text = "Styawan Saputra";
+    // ctrTelepon.text = "08563735581";
+    // ctrEmail.text = "curlylazy@gmail.com";
+    // ctrAlamat.text = "Jalan Campuan Asri No IV D Blok BB No 67";
 
     // UserData.update((_) {
     //   UserData.value.username = ctrUsername.text;
@@ -85,13 +108,13 @@ class UserAEController extends GetxController {
     //   UserData.value.jk = 'L';
     // });
 
-    UserData.username.value = ctrUsername.text;
-    UserData.password.value = ctrPassword.text;
-    UserData.nama.value = ctrNama.text;
-    UserData.telepon.value = ctrTelepon.text;
-    UserData.alamat.value = ctrAlamat.text;
-    UserData.email.value = ctrEmail.text;
-    UserData.jk.value = 'L';
+    // UserData.username.value = ctrUsername.text;
+    // UserData.password.value = ctrPassword.text;
+    // UserData.nama.value = ctrNama.text;
+    // UserData.telepon.value = ctrTelepon.text;
+    // UserData.alamat.value = ctrAlamat.text;
+    // UserData.email.value = ctrEmail.text;
+    // UserData.jk.value = 'L';
   }
 
   @override
@@ -104,10 +127,59 @@ class UserAEController extends GetxController {
     ctrEmail.dispose();
   }
 
-  onClick_SaveData(BuildContext context) async {
+  readData() async {
     try {
-      FocusScope.of(context).unfocus();
-      widgetLoader.showLoaderDialog(context, pesan: "Mohon tunggu..");
+      dialogAlert.proggresDialogShow();
+
+      var ijson = new IJson();
+      ijson.newTable("DataHeader");
+      ijson.addRow("id", id);
+      ijson.endRow();
+      ijson.createTable();
+
+      var reqData = ijson.generateJson();
+
+      var res = await ih.sendDataAsync(
+          AppConfig.APP_URL, "user/read", reqData, "", "");
+      print(res);
+
+      dialogAlert.proggresDialogHide();
+
+      var resData = res;
+      var resDataUser = resData['DataUser'];
+      bool status = resData['status'];
+      if (!status) {
+        dialogAlert.snackbarError(resData['pesan']);
+        return;
+      }
+
+      // print(resData['DataUser']);
+      UserData.username_old.value = resDataUser['username'];
+      UserData.kodeuser.value = resDataUser['kodeuser'];
+      UserData.username.value = resDataUser['username'];
+      UserData.password.value = resDataUser['password_dec'];
+      UserData.nama.value = resDataUser['nama'];
+      UserData.telepon.value = resDataUser['telepon'];
+      UserData.alamat.value = resDataUser['alamat'];
+      UserData.email.value = resDataUser['email'];
+      UserData.jk.value = resDataUser['jk'];
+      print(UserData.toJson());
+
+      ctrUsername.text = UserData.username.value;
+      ctrPassword.text = UserData.password.value;
+      ctrNama.text = UserData.nama.value;
+      ctrTelepon.text = UserData.telepon.value;
+      ctrEmail.text = UserData.email.value;
+      ctrAlamat.text = UserData.alamat.value;
+    } catch (e) {
+      print("ERROR :: ${e.toString()}");
+      dialogAlert.snackbarError(e.toString());
+    }
+  }
+
+  onClick_SaveData() async {
+    try {
+      dialogAlert.proggresDialogShow();
 
       var ijson = new IJson();
       ijson.newTable("DataHeader");
@@ -120,20 +192,20 @@ class UserAEController extends GetxController {
       var res =
           await ih.sendDataAsync(AppConfig.APP_URL, actPage, reqData, "", "");
 
-      widgetLoader.hideDialog(context);
+      dialogAlert.proggresDialogHide();
 
       print(res);
-      var resData = jsonDecode(res);
+      var resData = res;
       bool status = resData['status'];
 
       if (!status) {
-        dialogAlert.alertCustom(resData['pesan'], context);
+        dialogAlert.snackbarError(resData['pesan']);
         return;
       }
-      dialogAlert.alertCustom(resData['pesan'], context);
+      dialogAlert.snackbarSuccess(resData['pesan']);
     } catch (e) {
       print("ERROR :: ${e.toString()}");
-      dialogAlert.alertCustom("ERROR :: ${e.toString()}", context);
+      dialogAlert.snackbarError(e.toString());
     }
   }
 }

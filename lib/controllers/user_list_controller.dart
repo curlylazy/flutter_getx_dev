@@ -51,6 +51,7 @@ class UserListController extends GetxController {
   void onReady() {
     super.onReady();
     print("pages :: onReady()");
+    loadData();
   }
 
   @override
@@ -58,30 +59,35 @@ class UserListController extends GetxController {
     ctrKatakunci.dispose();
   }
 
-  nextPage(BuildContext context) async {
+  nextPage() async {
     if (currentpage.value == totalpage.value) return;
-    currentpage = currentpage + 1;
+    currentpage.value = currentpage.value + 1;
 
-    await loadData(context);
+    await loadData();
   }
 
-  prevPage(BuildContext context) async {
+  prevPage() async {
     if (currentpage.value == 1) return;
-    currentpage = currentpage - 1;
+    currentpage.value = currentpage.value - 1;
 
-    await loadData(context);
+    await loadData();
   }
 
-  loadData(BuildContext context) async {
+  refreshPage() async {
+    currentpage.value = 1;
+    await loadData();
+  }
+
+  loadData() async {
     try {
       print("run process :: loadData()");
 
-      widgetLoader.showLoaderDialog(context, pesan: "Mohon tunggu..");
+      dialogAlert.proggresDialogShow();
 
       var ijson = new IJson();
       ijson.newTable("DataHeader");
       ijson.addRow("katakunci", ctrKatakunci.text);
-      ijson.addRow("page", currentpage);
+      ijson.addRow("page", currentpage.value);
       ijson.endRow();
       ijson.createTable();
 
@@ -107,11 +113,50 @@ class UserListController extends GetxController {
       }
 
       dataUser.addAll(arrTemp);
-      totalpage = resDataPaging['totalpage'];
+      totalpage.value = resDataPaging['totalpage'];
 
-      widgetLoader.hideDialog(context);
+      dialogAlert.proggresDialogHide();
     } catch (e) {
+      dialogAlert.proggresDialogHide();
+      dialogAlert.snackbarError(e.toString());
       print("ERROR loadData() :: ${e.toString()}");
+    }
+  }
+
+  hapusData(index) async {
+    try {
+      bool result = await dialogAlert.confirmDialog(
+          "KONFIRMASI HAPUS", "Hapus data ${dataUser[index]['nama']} ?");
+      print(result);
+      if (result) {
+        var ijson = new IJson();
+        ijson.newTable("DataHeader");
+        ijson.addRow("kode", dataUser[index]['kodeuser']);
+        ijson.endRow();
+        ijson.createTable();
+
+        dialogAlert.proggresDialogShow();
+
+        var reqData = ijson.generateJson();
+        var res = await ih.sendDataAsync(
+            AppConfig.APP_URL, "user/delete", reqData, "", "");
+
+        dialogAlert.proggresDialogHide();
+
+        var resData = res;
+        bool status = resData['status'];
+
+        if (!status) {
+          dialogAlert.snackbarError(resData['pesan']);
+          return;
+        }
+
+        dialogAlert.snackbarSuccess(resData['pesan']);
+        await loadData();
+      }
+    } catch (e) {
+      print("ERROR :: ${e.toString()}");
+      dialogAlert.snackbarError(e.toString());
     }
   }
 
