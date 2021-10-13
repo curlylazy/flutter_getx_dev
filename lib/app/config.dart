@@ -8,6 +8,6 @@
 class AppConfig {
   static var APP_URL = "http://192.168.102.50/lumen_2021/public";
   static var APP_SAVE_MODE = null;
-  static var APP_SAVE_MODE_ADD = 1;
-  static var APP_SAVE_MODE_EDIT = 2;
+  static var APP_SAVE_MODE_ADD = "1";
+  static var APP_SAVE_MODE_EDIT = "2";
 }

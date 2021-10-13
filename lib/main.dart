@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import './views/my_home_page.dart';
 import './views/user_ae.dart';
 import './views/user_list.dart';
+import './views/item_list.dart';
+import './views/item_ae.dart';
 import './views/dashboard.dart';
 
 void main() {
@@ -29,6 +31,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/dashboard', page: () => DashboardPage()),
         GetPage(name: '/user/list', page: () => UserList()),
         GetPage(name: '/user/ae', page: () => UserAE()),
+        GetPage(name: '/item/list', page: () => ItemList()),
+        GetPage(name: '/item/ae', page: () => ItemAE()),
       ],
     );
   }

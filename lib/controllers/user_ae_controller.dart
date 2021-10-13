@@ -48,7 +48,7 @@ class UserAEController extends GetxController {
   var stringFunction = new StringFunction();
   var widgetLoader = new WidgetLoader();
 
-  var actMode = 0;
+  var actMode = "";
   var actPage = "";
   var judulPage = "".obs;
   var id = "";

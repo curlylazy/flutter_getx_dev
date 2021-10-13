@@ -16,8 +16,8 @@ class DashboardPage extends StatelessWidget {
               'assets/images/014-customer service.png', '/user/list'),
           menuData(context, 'Data Pelanggan', 'assets/images/009-courier.png',
               '/pelanggan/list'),
-          menuData(
-              context, 'Data Item', 'assets/images/002-french fries.png', ''),
+          menuData(context, 'Data Item', 'assets/images/002-french fries.png',
+              '/item/list'),
         ]),
         Row(
             mainAxisAlignment: MainAxisAlignment.start,
