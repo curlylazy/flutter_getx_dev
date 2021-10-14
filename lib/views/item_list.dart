@@ -29,7 +29,7 @@ class ItemList extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 10.0),
                 child: IconButton(
                   onPressed: () async {
-                    Get.offNamed('/item/ae');
+                    Get.toNamed('/item/ae');
                   },
                   icon: const Icon(Icons.add),
                 )),
@@ -106,7 +106,7 @@ class ItemList extends StatelessWidget {
                                         "data": ctrItem.dataItem[index]
                                             ['kodeitem']
                                       };
-                                      Get.offNamed("/item/ae",
+                                      Get.toNamed("/item/ae",
                                           parameters: parameters);
                                     },
                                   ),

@@ -6,7 +6,7 @@ class ItemModel {
   var kodeitem = "".obs;
   var kategori = "".obs;
   var namaitem = "".obs;
-  var harga = 0.obs;
+  var harga = "".obs;
   var keteranganitem = "".obs;
   var gambaritem = "".obs;
 
@@ -18,4 +18,13 @@ class ItemModel {
         'keteranganitem': keteranganitem.value,
         'gambaritem': gambaritem.value,
       };
+
+  clearData() {
+    kodeitem.value = "";
+    kategori.value = "";
+    namaitem.value = "";
+    harga.value = "";
+    keteranganitem.value = "";
+    gambaritem.value = "";
+  }
 }

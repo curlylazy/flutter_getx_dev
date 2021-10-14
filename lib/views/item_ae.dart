@@ -34,7 +34,7 @@ class ItemAE extends StatelessWidget {
                         hintText: 'masukkan kodeitem',
                         labelText: 'Kode Item'),
                     onChanged: (value) {
-                      ctrItemAE.itemData.kodeitem.value = value;
+                      ctrItemAE.itemService.itemData.kodeitem.value = value;
                       // ctrItemAE.itemData.update((_) {
                       //   ctrItemAE.itemData.value.username = value;
                       // });
@@ -47,7 +47,7 @@ class ItemAE extends StatelessWidget {
                         hintText: 'masukkan nama item',
                         labelText: 'Nama Item'),
                     onChanged: (value) {
-                      ctrItemAE.itemData.namaitem.value = value;
+                      ctrItemAE.itemService.itemData.namaitem.value = value;
                     }),
                 const SizedBox(height: 10),
                 TextField(
@@ -57,9 +57,9 @@ class ItemAE extends StatelessWidget {
                         hintText: 'masukkan kategori',
                         labelText: 'Kategori'),
                     onChanged: (value) {
-                      ctrItemAE.itemData.kategori.value = value;
-                      // ctrItemAE.itemData.update((_) {
-                      //   ctrItemAE.itemData.value.nama = value;
+                      ctrItemAE.itemService.itemData.kategori.value = value;
+                      // ctrItemAE.itemService.itemData.update((_) {
+                      //   ctrItemAE.itemService.itemData.value.nama = value;
                       // });
                     }),
                 const SizedBox(height: 10),
@@ -71,9 +71,9 @@ class ItemAE extends StatelessWidget {
                         hintText: 'masukkan harga',
                         labelText: 'Harga'),
                     onChanged: (value) {
-                      ctrItemAE.itemData.harga.value = int.parse(value);
-                      // ctrItemAE.itemData.update((_) {
-                      //   ctrItemAE.itemData.value.telepon = value;
+                      ctrItemAE.itemService.itemData.harga.value = value;
+                      // ctrItemAE.itemService.itemData.update((_) {
+                      //   ctrItemAE.itemService.itemData.value.telepon = value;
                       // });
                     }),
                 const SizedBox(height: 10),
@@ -84,7 +84,8 @@ class ItemAE extends StatelessWidget {
                         hintText: 'masukkan keterangan',
                         labelText: 'Keterangan'),
                     onChanged: (value) {
-                      ctrItemAE.itemData.keteranganitem.value = value;
+                      ctrItemAE.itemService.itemData.keteranganitem.value =
+                          value;
                       // ctrItemAE.itemData.update((_) {
                       //   ctrItemAE.itemData.value.alamat = value;
                       // });

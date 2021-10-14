@@ -27,6 +27,8 @@ class ItemAEService extends GetxController {
   var itemData = new ItemModel();
 
   setParam(String kode) async {
+    var ret = new ReturnModel();
+
     kodeKey = kode;
     await initializeModul();
 
@@ -35,20 +37,25 @@ class ItemAEService extends GetxController {
       SAVE_MODE = AppConfig.APP_SAVE_MODE_ADD;
       actPage = "item/tambah";
       judulPage = "Item Tambah";
+
+      ret.Number = 0;
+      ret.Message = "";
     } else {
       SAVE_MODE = AppConfig.APP_SAVE_MODE_EDIT;
       actPage = "item/update";
       judulPage = "Item Update";
-      await readData();
+      ret = await readData();
     }
+
+    return ret;
   }
 
   initializeModul() {
-    itemData.kodeitem.value = "ITEM001";
-    itemData.namaitem.value = "Tori Tori Chees Cracker";
-    itemData.harga.value = 10000;
-    itemData.kategori.value = "Makanan";
-    itemData.keteranganitem.value = "adalah sebuah makanan yang enak";
+    itemData.kodeitem.value = "AUTO";
+    itemData.namaitem.value = "";
+    itemData.harga.value = "";
+    itemData.kategori.value = "";
+    itemData.keteranganitem.value = "";
   }
 
   saveData() async {
@@ -57,6 +64,8 @@ class ItemAEService extends GetxController {
       ret.Number = 0;
       ret.Message = "";
       ret.Data = null;
+
+      print(itemData.toJson());
 
       if (stringFunction.isNullOrEmpty(itemData.kodeitem.value)) {
         ret.Number = 1;
@@ -144,7 +153,7 @@ class ItemAEService extends GetxController {
 
       itemData.kodeitem.value = resDataItem['kodeitem'];
       itemData.namaitem.value = resDataItem['namaitem'];
-      itemData.harga.value = resDataItem['harga'];
+      itemData.harga.value = resDataItem['harga'].toString();
       itemData.kategori.value = resDataItem['kategori'];
       itemData.keteranganitem.value = resDataItem['keteranganitem'];
 
@@ -152,6 +161,10 @@ class ItemAEService extends GetxController {
       return ret;
     } catch (e) {
       print("ERROR SERVICE :: ${e.toString()}");
+      var ret = new ReturnModel();
+      ret.Number = 1;
+      ret.Message = "ERROR SERVICE :: ${e.toString()}";
+      return ret;
     }
   }
 }

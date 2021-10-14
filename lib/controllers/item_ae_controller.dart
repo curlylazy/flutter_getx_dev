@@ -31,7 +31,6 @@ class ItemAEController extends GetxController {
       ctrKeteranganItem;
 
   var itemService = new ItemAEService();
-  var itemData = new ItemModel();
 
   var ih = new IHttpClientGetx();
   var dialogAlert = new DialogAlert();
@@ -44,8 +43,8 @@ class ItemAEController extends GetxController {
   var id = "";
 
   @override
-  void onInit() {
-    print("loaded data..");
+  void onInit() async {
+    print("onInit data..");
 
     // buat controllernya
     ctrKodeItem = TextEditingController();
@@ -59,28 +58,20 @@ class ItemAEController extends GetxController {
 
   @override
   void onReady() async {
-    // print(Get.parameters['mode']);
+    print("onReady data..");
     print(Get.parameters['data']);
 
-    // var varMode = Get.parameters['mode'];
-    // if (varMode == "**edit") {
-    //   actMode = AppConfig.APP_SAVE_MODE_EDIT;
-    //   actPage = "item/update";
-    //   id = Get.parameters['data'].toString();
-    //   judulPage.value = "Item Edit";
-    //   await readData();
-    // } else {
-    //   actMode = AppConfig.APP_SAVE_MODE_ADD;
-    //   judulPage.value = "Item Tambah";
-    //   actPage = "item/tambah";
-    // }
-
-    print("loaded data..");
     dialogAlert.proggresDialogShow();
-    await itemService.setParam(Get.parameters['data'].toString());
+    ReturnModel res =
+        await itemService.setParam(Get.parameters['data'].toString());
     judulPage.value = itemService.judulPage;
-    initEditor();
     dialogAlert.proggresDialogHide();
+
+    if (res.Number == 1) {
+      dialogAlert.snackbarError(res.Message);
+      return;
+    }
+    initEditor();
 
     super.onReady();
   }
@@ -92,6 +83,8 @@ class ItemAEController extends GetxController {
     ctrKategori.dispose();
     ctrKeteranganItem.dispose();
     ctrHarga.dispose();
+
+    itemService.itemData.clearData();
   }
 
   initEditor() {
@@ -103,44 +96,7 @@ class ItemAEController extends GetxController {
   }
 
   readData() async {
-    try {
-      dialogAlert.proggresDialogShow();
-
-      var ijson = new IJson();
-      ijson.newTable("DataHeader");
-      ijson.addRow("id", id);
-      ijson.endRow();
-      ijson.createTable();
-
-      var reqData = ijson.generateJson();
-
-      var res = await ih.sendDataAsync(
-          AppConfig.APP_URL, "user/read", reqData, "", "");
-      print(res);
-
-      dialogAlert.proggresDialogHide();
-
-      var resData = res;
-      var resDataUser = resData['DataUser'];
-      bool status = resData['status'];
-      if (!status) {
-        dialogAlert.snackbarError(resData['pesan']);
-        return;
-      }
-
-      itemData.kodeitem.value = resDataUser['kodeitem'];
-      itemData.namaitem.value = resDataUser['namaitem'];
-      itemData.kategori.value = resDataUser['kategori'];
-      itemData.keteranganitem.value = resDataUser['keteranganitem'];
-      itemData.harga.value = resDataUser['harga'];
-      print(itemData.toJson());
-
-      ctrKodeItem.text = itemData.kodeitem.value;
-      ctrKategori.text = itemData.kategori.value;
-      ctrNamaItem.text = itemData.namaitem.value;
-      ctrHarga.text = itemData.harga.value.toString();
-      ctrKeteranganItem.text = itemData.keteranganitem.value;
-    } catch (e) {
+    try {} catch (e) {
       print("ERROR :: ${e.toString()}");
       dialogAlert.snackbarError(e.toString());
     }
@@ -159,31 +115,6 @@ class ItemAEController extends GetxController {
 
       await dialogAlert.snackbarSuccess(res.Message);
       return;
-
-      // dialogAlert.proggresDialogShow();
-
-      // var ijson = new IJson();
-      // ijson.newTable("DataHeader");
-      // ijson.addRowFromObject(itemData.toJson());
-      // ijson.createTable();
-
-      // var reqData = ijson.generateJson();
-      // print(reqData);
-
-      // var res =
-      //     await ih.sendDataAsync(AppConfig.APP_URL, actPage, reqData, "", "");
-
-      // dialogAlert.proggresDialogHide();
-
-      // print(res);
-      // var resData = res;
-      // bool status = resData['status'];
-
-      // if (!status) {
-      //   dialogAlert.snackbarError(resData['pesan']);
-      //   return;
-      // }
-      // dialogAlert.snackbarSuccess(resData['pesan']);
     } catch (e) {
       print("ERROR :: ${e.toString()}");
       dialogAlert.snackbarError(e.toString());
