@@ -1,7 +1,7 @@
 // import 'dart:html';
 
 import 'package:flutter/material.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class DialogAlert {
@@ -27,6 +27,23 @@ class DialogAlert {
         return alert;
       },
     );
+  }
+
+  alertDialog(String judul, String msg) {
+    Get.dialog(
+        AlertDialog(
+          title: Text(judul, style: const TextStyle(fontSize: 12)),
+          content: Text(msg),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("OK"),
+              onPressed: () {
+                Get.back();
+              },
+            )
+          ],
+        ),
+        barrierDismissible: false);
   }
 
   confirmDialog(String judul, String msg) async {
@@ -142,5 +159,27 @@ class DialogAlert {
         isDismissible: true,
         dismissDirection: SnackDismissDirection.HORIZONTAL,
         forwardAnimationCurve: Curves.easeOutBack);
+  }
+
+  toastError(String msg) {
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+
+  toastSuccess(String msg) {
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 }

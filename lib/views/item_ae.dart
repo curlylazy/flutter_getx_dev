@@ -9,15 +9,16 @@ class ItemAE extends StatelessWidget {
   ItemAE({Key? key}) : super(key: key);
 
   final ItemAEController ctrItemAE = Get.put(ItemAEController());
-
   @override
   Widget build(BuildContext context) {
+    ctrItemAE.setContext(context);
     return Scaffold(
         appBar: AppBar(
           title: Obx(() => Text(ctrItemAE.judulPage.value)),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
+              Get.back();
               Get.offNamed("item/list");
             },
           ),
@@ -35,9 +36,6 @@ class ItemAE extends StatelessWidget {
                         labelText: 'Kode Item'),
                     onChanged: (value) {
                       ctrItemAE.itemService.itemData.kodeitem.value = value;
-                      // ctrItemAE.itemData.update((_) {
-                      //   ctrItemAE.itemData.value.username = value;
-                      // });
                     }),
                 const SizedBox(height: 10),
                 TextField(

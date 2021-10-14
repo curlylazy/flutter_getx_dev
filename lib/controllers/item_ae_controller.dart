@@ -23,7 +23,7 @@ import 'package:flut_getx_dev/widgets/widget_loader.dart';
 import 'package:flut_getx_dev/service/item_ae_service.dart';
 
 class ItemAEController extends GetxController {
-  late final BuildContext context;
+  late BuildContext currentContex;
   late TextEditingController ctrKodeItem,
       ctrKategori,
       ctrNamaItem,
@@ -41,6 +41,8 @@ class ItemAEController extends GetxController {
   var actPage = "";
   var judulPage = "".obs;
   var id = "";
+
+  // ItemAEController(BuildContext context);
 
   @override
   void onInit() async {
@@ -84,7 +86,12 @@ class ItemAEController extends GetxController {
     ctrKeteranganItem.dispose();
     ctrHarga.dispose();
 
+    print("onClose data..");
     itemService.itemData.clearData();
+  }
+
+  setContext(BuildContext context) {
+    currentContex = context;
   }
 
   initEditor() {
@@ -95,29 +102,23 @@ class ItemAEController extends GetxController {
     ctrHarga.text = itemService.itemData.harga.value.toString();
   }
 
-  readData() async {
-    try {} catch (e) {
-      print("ERROR :: ${e.toString()}");
-      dialogAlert.snackbarError(e.toString());
-    }
-  }
-
   onClick_SaveData() async {
     try {
       dialogAlert.proggresDialogShow();
       ReturnModel res = await itemService.saveData();
       dialogAlert.proggresDialogHide();
 
+      print(res);
       if (res.Number == 1) {
-        dialogAlert.snackbarError(res.Message);
+        dialogAlert.alertDialog("KESALAHAN", res.Message);
         return;
       }
 
-      await dialogAlert.snackbarSuccess(res.Message);
-      return;
+      // dialogAlert.alertDialog("BERHASIL", res.Message);
+      dialogAlert.snackbarSuccess(res.Message);
     } catch (e) {
       print("ERROR :: ${e.toString()}");
-      dialogAlert.snackbarError(e.toString());
+      dialogAlert.toastError(e.toString());
     }
   }
 }

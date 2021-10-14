@@ -11,50 +11,50 @@ class IJson {
 
   // JSON Data File
   newFile() {
-    this.name = "DataFileUpload";
+    name = "DataFileUpload";
   }
 
   addFile(rowname, value) {
-    this.rowArrFile['rowname'] = rowname;
-    this.rowArrFile['value'] = value;
-    this.rowArrsFile.add(this.rowArrFile);
-    this.rowArrFile = {};
+    rowArrFile['rowname'] = rowname;
+    rowArrFile['value'] = value;
+    rowArrsFile.add(rowArrFile);
+    rowArrFile = {};
   }
 
   createFile() {
-    this.tablesArr[this.name] = this.rowArrsFile;
-    this.name = "";
-    this.rowArrsFile = [];
+    tablesArr[name] = rowArrsFile;
+    name = "";
+    rowArrsFile = [];
   }
 
   // JSON Data String
   newTable(tablename) {
-    this.name = tablename;
+    name = tablename;
   }
 
   addRow(rowname, value) {
-    this.rowArr[rowname] = value;
+    rowArr[rowname] = value;
   }
 
   endRow() {
-    this.rowArrs.add(this.rowArr);
-    this.rowArr = {};
+    rowArrs.add(rowArr);
+    rowArr = {};
   }
 
   addRowFromObject(obj) {
-    this.rowArrs.add(obj);
-    this.rowArr = {};
+    rowArrs.add(obj);
+    rowArr = {};
   }
 
   createTableFromObjectCollection(obj) {
-    this.tablesArr[this.name] = obj;
-    this.name = "";
+    tablesArr[name] = obj;
+    name = "";
   }
 
   createTable() {
-    this.tablesArr[this.name] = this.rowArrs;
-    this.name = "";
-    this.rowArrs = [];
+    tablesArr[name] = rowArrs;
+    name = "";
+    rowArrs = [];
   }
 
   generateJson() {
