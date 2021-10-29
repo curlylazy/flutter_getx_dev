@@ -28,3 +28,30 @@ class ItemModel {
     gambaritem.value = "";
   }
 }
+
+class ItemListModel {
+  var kodeitem = "";
+  var kategori = "";
+  var namaitem = "";
+  var harga = "";
+  var keteranganitem = "";
+  var gambaritem = "";
+
+  Map<String, dynamic> toJson() => {
+        'kodeitem': kodeitem,
+        'kategori': kategori,
+        'namaitem': namaitem,
+        'harga': harga,
+        'keteranganitem': keteranganitem,
+        'gambaritem': gambaritem,
+      };
+
+  clearData() {
+    kodeitem = "";
+    kategori = "";
+    namaitem = "";
+    harga = "";
+    keteranganitem = "";
+    gambaritem = "";
+  }
+}

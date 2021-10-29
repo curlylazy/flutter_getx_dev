@@ -49,25 +49,30 @@ class ItemList extends StatelessWidget {
                   height: 5.0,
                 ),
                 TextField(
-                  controller: ctrItem.ctrKatakunci,
-                  decoration: InputDecoration(
-                      suffixIcon: IconButton(
-                        onPressed: () async {
-                          FocusScope.of(context).unfocus();
-                          ctrItem.refreshPage();
-                        },
-                        icon: const Icon(Icons.search),
-                      ),
-                      isDense: true,
-                      border: const OutlineInputBorder(),
-                      hintText: 'masukkan katakunci',
-                      labelText: 'Katakunci'),
-                )
+                    controller: ctrItem.ctrKatakunci,
+                    decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          onPressed: () async {
+                            FocusScope.of(context).unfocus();
+                            ctrItem.refreshPage();
+                          },
+                          icon: const Icon(Icons.search),
+                        ),
+                        isDense: true,
+                        border: const OutlineInputBorder(),
+                        hintText: 'masukkan katakunci',
+                        labelText: 'Katakunci'),
+                    onChanged: (value) {
+                      ctrItem.itemService.katakunci.value = value;
+                      // ctrItemAE.itemData.update((_) {
+                      //   ctrItemAE.itemData.value.alamat = value;
+                      // });
+                    })
               ])),
           Obx(() => Expanded(
               child: ListView.builder(
                   padding: const EdgeInsets.all(5.0),
-                  itemCount: ctrItem.dataItem.length,
+                  itemCount: ctrItem.itemService.dataItem.length,
                   itemBuilder: (context, index) {
                     return InkWell(
                         onTap: () async {
@@ -82,7 +87,7 @@ class ItemList extends StatelessWidget {
                                       padding: EdgeInsets.only(
                                           top: 15, left: 15, bottom: 5),
                                       child: Text(
-                                          "Data : ${ctrItem.dataItem[index]['namaitem']}",
+                                          "Data : ${ctrItem.itemService.dataItem[index]['namaitem']}",
                                           style: TextStyle(fontSize: 17))),
                                   ListTile(
                                     leading: Icon(
@@ -103,8 +108,8 @@ class ItemList extends StatelessWidget {
                                       Get.back();
                                       var parameters = <String, String>{
                                         "mode": "**edit",
-                                        "data": ctrItem.dataItem[index]
-                                            ['kodeitem']
+                                        "data": ctrItem.itemService
+                                            .dataItem[index]['kodeitem']
                                       };
                                       Get.offNamed("/item/ae",
                                           parameters: parameters);
@@ -128,7 +133,8 @@ class ItemList extends StatelessWidget {
                                   padding: const EdgeInsets.only(
                                       top: 5, left: 15, bottom: 10),
                                   child: Text(
-                                      ctrItem.dataItem[index]['kodeitem'],
+                                      ctrItem.itemService.dataItem[index]
+                                          ['kodeitem'],
                                       style: TextStyle(
                                           fontSize: 15, letterSpacing: 3)),
                                 ),
@@ -136,14 +142,16 @@ class ItemList extends StatelessWidget {
                                   padding: const EdgeInsets.only(
                                       top: 0, left: 15, bottom: 5),
                                   child: Text(
-                                      ctrItem.dataItem[index]['kategori'],
+                                      ctrItem.itemService.dataItem[index]
+                                          ['kategori'],
                                       style: TextStyle(fontSize: 16)),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       top: 0, left: 15, bottom: 5),
                                   child: Text(
-                                      ctrItem.dataItem[index]['namaitem'],
+                                      ctrItem.itemService.dataItem[index]
+                                          ['namaitem'],
                                       style: TextStyle(fontSize: 16)),
                                 ),
                               ]),

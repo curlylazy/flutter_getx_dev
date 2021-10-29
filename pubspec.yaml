@@ -39,6 +39,7 @@ dependencies:
   fluttertoast: ^8.0.8
   progress_dialog: ^1.2.4
   image_picker: ^0.8.4+2
+  intl:
   
 
 dev_dependencies:
