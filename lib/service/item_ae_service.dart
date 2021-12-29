@@ -99,8 +99,7 @@ class ItemAEService extends GetxController {
       var reqData = ijson.generateJson();
       print(reqData);
 
-      var res =
-          await ih.sendDataAsync(AppConfig.APP_URL, actPage, reqData, "", "");
+      var res = await ih.sendDataAsync(AppConfig.APP_URL, actPage, reqData, "", "");
 
       var resData = res;
       bool status = resData['status'];
@@ -138,8 +137,7 @@ class ItemAEService extends GetxController {
 
       var reqData = ijson.generateJson();
 
-      var res = await ih.sendDataAsync(
-          AppConfig.APP_URL, "item/read", reqData, "", "");
+      var res = await ih.sendDataAsync(AppConfig.APP_URL, "item/read", reqData, "", "");
       print(res);
 
       var resData = res;

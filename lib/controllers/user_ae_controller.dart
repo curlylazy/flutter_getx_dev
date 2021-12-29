@@ -24,12 +24,7 @@ import 'package:flut_getx_dev/widgets/widget_loader.dart';
 
 class UserAEController extends GetxController {
   late final BuildContext context;
-  late TextEditingController ctrUsername,
-      ctrPassword,
-      ctrNama,
-      ctrTelepon,
-      ctrEmail,
-      ctrAlamat;
+  late TextEditingController ctrUsername, ctrPassword, ctrNama, ctrTelepon, ctrEmail, ctrAlamat;
 
   // var UserData = new UserModel(
   //         username: "",
@@ -139,8 +134,7 @@ class UserAEController extends GetxController {
 
       var reqData = ijson.generateJson();
 
-      var res = await ih.sendDataAsync(
-          AppConfig.APP_URL, "user/read", reqData, "", "");
+      var res = await ih.sendDataAsync(AppConfig.APP_URL, "user/read", reqData, "", "");
       print(res);
 
       dialogAlert.proggresDialogHide();
@@ -189,8 +183,7 @@ class UserAEController extends GetxController {
       var reqData = ijson.generateJson();
       print(reqData);
 
-      var res =
-          await ih.sendDataAsync(AppConfig.APP_URL, actPage, reqData, "", "");
+      var res = await ih.sendDataAsync(AppConfig.APP_URL, actPage, reqData, "", "");
 
       dialogAlert.proggresDialogHide();
 
