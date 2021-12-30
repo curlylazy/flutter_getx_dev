@@ -83,19 +83,13 @@ class ItemList extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 15, left: 15, bottom: 5),
-                                      child: Text(
-                                          "Data : ${ctrItem.itemService.dataItem[index]['namaitem']}",
-                                          style: TextStyle(fontSize: 17))),
+                                  Padding(padding: EdgeInsets.only(top: 15, left: 15, bottom: 5), child: Text("Data : ${ctrItem.itemService.dataItem[index]['namaitem']}", style: TextStyle(fontSize: 17))),
                                   ListTile(
                                     leading: Icon(
                                       Icons.delete,
                                       color: Colors.red,
                                     ),
-                                    title: Text('Hapus',
-                                        style: TextStyle(color: Colors.red)),
+                                    title: Text('Hapus', style: TextStyle(color: Colors.red)),
                                     onTap: () async {
                                       Get.back();
                                       await ctrItem.hapusData(index);
@@ -108,11 +102,9 @@ class ItemList extends StatelessWidget {
                                       Get.back();
                                       var parameters = <String, String>{
                                         "mode": "**edit",
-                                        "data": ctrItem.itemService
-                                            .dataItem[index]['kodeitem']
+                                        "data": ctrItem.itemService.dataItem[index]['kodeitem']
                                       };
-                                      Get.offNamed("/item/ae",
-                                          parameters: parameters);
+                                      Get.offNamed("/item/ae", parameters: parameters);
                                     },
                                   ),
                                   ListTile(
@@ -126,35 +118,20 @@ class ItemList extends StatelessWidget {
                               )));
                         },
                         child: Card(
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 5, left: 15, bottom: 10),
-                                  child: Text(
-                                      ctrItem.itemService.dataItem[index]
-                                          ['kodeitem'],
-                                      style: TextStyle(
-                                          fontSize: 15, letterSpacing: 3)),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 0, left: 15, bottom: 5),
-                                  child: Text(
-                                      ctrItem.itemService.dataItem[index]
-                                          ['kategori'],
-                                      style: TextStyle(fontSize: 16)),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 0, left: 15, bottom: 5),
-                                  child: Text(
-                                      ctrItem.itemService.dataItem[index]
-                                          ['namaitem'],
-                                      style: TextStyle(fontSize: 16)),
-                                ),
-                              ]),
+                          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 5, left: 15, bottom: 10),
+                              child: Text(ctrItem.itemService.dataItem[index]['kodeitem'], style: TextStyle(fontSize: 15, letterSpacing: 3)),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 0, left: 15, bottom: 5),
+                              child: Text(ctrItem.itemService.dataItem[index]['kategori'], style: TextStyle(fontSize: 16)),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 0, left: 15, bottom: 5),
+                              child: Text(ctrItem.itemService.dataItem[index]['namaitem'], style: TextStyle(fontSize: 16)),
+                            ),
+                          ]),
                         ));
                   }))),
           Container(
@@ -174,8 +151,7 @@ class ItemList extends StatelessWidget {
                     () => Container(
                       alignment: Alignment.center,
                       width: 100,
-                      child: Text(
-                          "${ctrItem.currentpage.toString()} / ${ctrItem.totalpage.toString()}"),
+                      child: Text("${ctrItem.currentpage.toString()} / ${ctrItem.totalpage.toString()}"),
                     ),
                   ),
                   Directionality(

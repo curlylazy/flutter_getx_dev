@@ -28,35 +28,28 @@ class UserAE extends StatelessWidget {
               children: [
                 const SizedBox(height: 15),
                 TextField(
-                    controller: ctrUserAE.ctrUsername,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'masukkan username',
-                        labelText: 'Username'),
-                    onChanged: (value) {
-                      ctrUserAE.UserData.username.value = value;
-                      // ctrUserAE.UserData.update((_) {
-                      //   ctrUserAE.UserData.value.username = value;
-                      // });
-                    }),
+                  controller: ctrUserAE.ctrUsername,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'masukkan username',
+                    labelText: 'Username',
+                  ),
+                  onChanged: (value) {
+                    ctrUserAE.UserData.username.value = value;
+                  },
+                ),
                 const SizedBox(height: 10),
                 TextField(
                     controller: ctrUserAE.ctrPassword,
                     obscureText: true,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'masukkan password',
-                        labelText: 'Password'),
+                    decoration: const InputDecoration(border: OutlineInputBorder(), hintText: 'masukkan password', labelText: 'Password'),
                     onChanged: (value) {
                       ctrUserAE.UserData.password.value = value;
                     }),
                 const SizedBox(height: 10),
                 TextField(
                     controller: ctrUserAE.ctrNama,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'masukkan nama',
-                        labelText: 'Nama'),
+                    decoration: const InputDecoration(border: OutlineInputBorder(), hintText: 'masukkan nama', labelText: 'Nama'),
                     onChanged: (value) {
                       ctrUserAE.UserData.nama.value = value;
                       // ctrUserAE.UserData.update((_) {
@@ -67,10 +60,7 @@ class UserAE extends StatelessWidget {
                 TextField(
                     controller: ctrUserAE.ctrTelepon,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'masukkan telepon',
-                        labelText: 'Telepon'),
+                    decoration: const InputDecoration(border: OutlineInputBorder(), hintText: 'masukkan telepon', labelText: 'Telepon'),
                     onChanged: (value) {
                       ctrUserAE.UserData.telepon.value = value;
                       // ctrUserAE.UserData.update((_) {
@@ -80,10 +70,7 @@ class UserAE extends StatelessWidget {
                 const SizedBox(height: 10),
                 TextField(
                     controller: ctrUserAE.ctrAlamat,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'masukkan alamat',
-                        labelText: 'Alamat'),
+                    decoration: const InputDecoration(border: OutlineInputBorder(), hintText: 'masukkan alamat', labelText: 'Alamat'),
                     onChanged: (value) {
                       ctrUserAE.UserData.alamat.value = value;
                       // ctrUserAE.UserData.update((_) {
@@ -93,10 +80,7 @@ class UserAE extends StatelessWidget {
                 const SizedBox(height: 10),
                 TextField(
                     controller: ctrUserAE.ctrEmail,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'masukkan email',
-                        labelText: 'Email'),
+                    decoration: const InputDecoration(border: OutlineInputBorder(), hintText: 'masukkan email', labelText: 'Email'),
                     onChanged: (value) {
                       ctrUserAE.UserData.email.value = value;
                       // ctrUserAE.UserData.update((_) {
@@ -108,65 +92,61 @@ class UserAE extends StatelessWidget {
                     decoration: BoxDecoration(
                         // border: Border.all(color: Colors.grey),
                         borderRadius: BorderRadius.circular(3)),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Jenis Kelamin"),
-                          ),
-                          // RadioListTile(
-                          //   value: "L",
-                          //   dense: true,
-                          //   groupValue: ctrUserAE.UserData.jk.value,
-                          //   title: const Text("Laki-laki"),
-                          //   activeColor: Colors.blue,
-                          //   onChanged: (value) {
-                          //     ctrUserAE.UserData.email.value = value.toString();
-                          //   },
-                          // ),
-                          // RadioListTile(
-                          //   value: "P",
-                          //   dense: true,
-                          //   groupValue: ctrUserAE.UserData.jk.value,
-                          //   title: const Text("Perempuan"),
-                          //   activeColor: Colors.blue,
-                          //   onChanged: (value) {
-                          //     ctrUserAE.UserData.jk.value = value.toString();
-                          //   },
-                          // ),
-                          Obx(() => RadioListTile(
-                                value: "L",
-                                dense: true,
-                                groupValue: ctrUserAE.UserData.jk.value,
-                                // groupValue: ctrUserAE.UserData.value.jk,
-                                title: const Text("Laki-laki"),
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  ctrUserAE.UserData.jk.value =
-                                      value.toString();
-                                  // ctrUserAE.UserData.update((_) {
-                                  //   ctrUserAE.UserData.value.jk =
-                                  //       value.toString();
-                                  // });
-                                },
-                              )),
-                          Obx(() => RadioListTile(
-                                value: "P",
-                                dense: true,
-                                groupValue: ctrUserAE.UserData.jk.value,
-                                title: const Text("Perempuan"),
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  ctrUserAE.UserData.jk.value =
-                                      value.toString();
-                                  // ctrUserAE.UserData.update((_) {
-                                  //   ctrUserAE.UserData.value.jk =
-                                  //       value.toString();
-                                  // });
-                                },
-                              )),
-                        ])),
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text("Jenis Kelamin"),
+                      ),
+                      // RadioListTile(
+                      //   value: "L",
+                      //   dense: true,
+                      //   groupValue: ctrUserAE.UserData.jk.value,
+                      //   title: const Text("Laki-laki"),
+                      //   activeColor: Colors.blue,
+                      //   onChanged: (value) {
+                      //     ctrUserAE.UserData.email.value = value.toString();
+                      //   },
+                      // ),
+                      // RadioListTile(
+                      //   value: "P",
+                      //   dense: true,
+                      //   groupValue: ctrUserAE.UserData.jk.value,
+                      //   title: const Text("Perempuan"),
+                      //   activeColor: Colors.blue,
+                      //   onChanged: (value) {
+                      //     ctrUserAE.UserData.jk.value = value.toString();
+                      //   },
+                      // ),
+                      Obx(() => RadioListTile(
+                            value: "L",
+                            dense: true,
+                            groupValue: ctrUserAE.UserData.jk.value,
+                            // groupValue: ctrUserAE.UserData.value.jk,
+                            title: const Text("Laki-laki"),
+                            activeColor: Colors.blue,
+                            onChanged: (value) {
+                              ctrUserAE.UserData.jk.value = value.toString();
+                              // ctrUserAE.UserData.update((_) {
+                              //   ctrUserAE.UserData.value.jk =
+                              //       value.toString();
+                              // });
+                            },
+                          )),
+                      Obx(() => RadioListTile(
+                            value: "P",
+                            dense: true,
+                            groupValue: ctrUserAE.UserData.jk.value,
+                            title: const Text("Perempuan"),
+                            activeColor: Colors.blue,
+                            onChanged: (value) {
+                              ctrUserAE.UserData.jk.value = value.toString();
+                              // ctrUserAE.UserData.update((_) {
+                              //   ctrUserAE.UserData.value.jk =
+                              //       value.toString();
+                              // });
+                            },
+                          )),
+                    ])),
                 const SizedBox(height: 20),
                 Container(
                   alignment: Alignment.bottomLeft,
@@ -179,8 +159,7 @@ class UserAE extends StatelessWidget {
                           FocusScope.of(context).unfocus();
                           ctrUserAE.onClick_SaveData();
                         },
-                        child: const Text('SIMPAN',
-                            style: TextStyle(color: Colors.white)),
+                        child: const Text('SIMPAN', style: TextStyle(color: Colors.white)),
                       )),
                 )
               ],

@@ -9,8 +9,7 @@ class DialogAlert {
 
   alertCustom(String msg, BuildContext context) {
     AlertDialog alert = AlertDialog(
-      title: const Text("INFORMASI",
-          style: TextStyle(fontSize: 12, letterSpacing: 2)),
+      title: const Text("INFORMASI", style: TextStyle(fontSize: 12, letterSpacing: 2)),
       content: Text(msg),
       actions: [
         TextButton(
@@ -85,8 +84,7 @@ class DialogAlert {
       content: Row(
         children: [
           const CircularProgressIndicator(),
-          Container(
-              margin: const EdgeInsets.only(left: 25), child: Text(msgPesan)),
+          Container(margin: const EdgeInsets.only(left: 25), child: Text(msgPesan)),
         ],
       ),
     ));
@@ -136,50 +134,18 @@ class DialogAlert {
   }
 
   snackbarError(String msg) {
-    Get.snackbar("KESALAHAN", msg,
-        snackPosition: SnackPosition.BOTTOM,
-        icon: const Icon(Icons.error, color: Colors.white),
-        backgroundColor: Colors.red,
-        margin: const EdgeInsets.all(15),
-        colorText: Colors.white,
-        duration: const Duration(seconds: 6),
-        isDismissible: true,
-        dismissDirection: SnackDismissDirection.HORIZONTAL,
-        forwardAnimationCurve: Curves.easeOutBack);
+    Get.snackbar("KESALAHAN", msg, snackPosition: SnackPosition.BOTTOM, icon: const Icon(Icons.error, color: Colors.white), backgroundColor: Colors.red, margin: const EdgeInsets.all(15), colorText: Colors.white, duration: const Duration(seconds: 6), isDismissible: true, dismissDirection: SnackDismissDirection.HORIZONTAL, forwardAnimationCurve: Curves.easeOutBack);
   }
 
   snackbarSuccess(String msg) {
-    Get.snackbar("INFORMASI", msg,
-        snackPosition: SnackPosition.BOTTOM,
-        icon: const Icon(Icons.error, color: Colors.white),
-        backgroundColor: Colors.green,
-        margin: const EdgeInsets.all(15),
-        colorText: Colors.white,
-        duration: const Duration(seconds: 6),
-        isDismissible: true,
-        dismissDirection: SnackDismissDirection.HORIZONTAL,
-        forwardAnimationCurve: Curves.easeOutBack);
+    Get.snackbar("INFORMASI", msg, snackPosition: SnackPosition.BOTTOM, icon: const Icon(Icons.error, color: Colors.white), backgroundColor: Colors.green, margin: const EdgeInsets.all(15), colorText: Colors.white, duration: const Duration(seconds: 6), isDismissible: true, dismissDirection: SnackDismissDirection.HORIZONTAL, forwardAnimationCurve: Curves.easeOutBack);
   }
 
   toastError(String msg) {
-    Fluttertoast.showToast(
-        msg: msg,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0);
+    Fluttertoast.showToast(msg: msg, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.red, textColor: Colors.white, fontSize: 16.0);
   }
 
   toastSuccess(String msg) {
-    Fluttertoast.showToast(
-        msg: msg,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 16.0);
+    Fluttertoast.showToast(msg: msg, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.green, textColor: Colors.white, fontSize: 16.0);
   }
 }

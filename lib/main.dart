@@ -1,8 +1,10 @@
 // # main.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import './views/my_home_page.dart';
+import './views/auth_login.dart';
 import './views/user_ae.dart';
 import './views/user_list.dart';
 import './views/item_list.dart';
@@ -22,13 +24,17 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        textTheme: GoogleFonts.latoTextTheme(
+          Theme.of(context).textTheme, // If this is not set, then ThemeData.light().textTheme is used.
+        ),
         primarySwatch: Colors.brown,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
-      home: DashboardPage(),
+      home: AuthLogin(),
       getPages: [
         GetPage(name: '/dashboard', page: () => DashboardPage()),
+        GetPage(name: '/auth/login', page: () => AuthLogin()),
         GetPage(name: '/user/list', page: () => UserList()),
         GetPage(name: '/user/ae', page: () => UserAE()),
         GetPage(name: '/item/list', page: () => ItemList()),

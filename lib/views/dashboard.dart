@@ -61,26 +61,33 @@ class DashboardPage extends StatelessWidget {
       onTap: () {
         Get.toNamed(url);
       },
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              iconmenu,
-              width: 60,
-              height: 60,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              judulmenu,
-              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Colors.black87, letterSpacing: 2),
-              textAlign: TextAlign.center,
-            )
-          ],
+      child: Card(
+        elevation: 18.0,
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: Colors.grey.shade300,
+            border: Border.all(color: Colors.black12),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                iconmenu,
+                width: 60,
+                height: 60,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                judulmenu,
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Colors.black87, letterSpacing: 2),
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -88,29 +95,34 @@ class DashboardPage extends StatelessWidget {
 
   Widget menuLogOut2() {
     return InkWell(
-      onTap: () {},
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              "assets/images/logout.png",
-              width: 60,
-              height: 60,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              "Log Out",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Colors.black87, letterSpacing: 2),
-              textAlign: TextAlign.center,
-            )
-          ],
+      child: Card(
+        elevation: 18.0,
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.red.shade500),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                "assets/images/logout.png",
+                width: 60,
+                height: 60,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                "Log Out",
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Colors.black87, letterSpacing: 2),
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
         ),
       ),
+      onTap: () {
+        Get.offNamed("auth/login");
+      },
     );
   }
 
