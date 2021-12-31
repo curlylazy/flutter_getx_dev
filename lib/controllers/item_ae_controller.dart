@@ -24,11 +24,7 @@ import 'package:flut_getx_dev/service/item_ae_service.dart';
 
 class ItemAEController extends GetxController {
   late BuildContext currentContex;
-  late TextEditingController ctrKodeItem,
-      ctrKategori,
-      ctrNamaItem,
-      ctrHarga,
-      ctrKeteranganItem;
+  late TextEditingController ctrKodeItem, ctrKategori, ctrNamaItem, ctrHarga, ctrKeteranganItem;
 
   var itemService = new ItemAEService();
 
@@ -64,8 +60,7 @@ class ItemAEController extends GetxController {
     print(Get.parameters['data']);
 
     dialogAlert.proggresDialogShow();
-    ReturnModel res =
-        await itemService.setParam(Get.parameters['data'].toString());
+    ReturnModel res = await itemService.setParam(Get.parameters['data'].toString());
     judulPage.value = itemService.judulPage;
     dialogAlert.proggresDialogHide();
 

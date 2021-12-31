@@ -12,7 +12,6 @@ import 'package:flut_getx_dev/app/json.dart';
 import 'package:flut_getx_dev/app/config.dart';
 import 'package:flut_getx_dev/app/stringfunction.dart';
 import 'package:flut_getx_dev/app/dialog.dart';
-import 'package:flut_getx_dev/app/ihttpclient.dart';
 import 'package:flut_getx_dev/app/ihttpclientgetx.dart';
 
 // model
@@ -23,8 +22,6 @@ import 'package:flut_getx_dev/widgets/widget_loader.dart';
 
 class UserListController extends GetxController {
   late TextEditingController ctrKatakunci;
-
-  var UserData = new UserModel2();
 
   var ih = new IHttpClientGetx();
   var dialogAlert = new DialogAlert();
@@ -93,26 +90,23 @@ class UserListController extends GetxController {
 
       var reqData = ijson.generateJson();
 
-      var res = await ih.sendDataAsync(
-          AppConfig.APP_URL, "user/list", reqData, "", "");
+      var res = await ih.sendDataAsync(AppConfig.APP_URL, "user/list", reqData, "", "");
 
       var resData = res;
       var resDataUser = resData['DataUser'];
       var resDataPaging = resData['DataPaging'];
       // print(resData);
 
-      var arrTemp = [];
       dataUser.clear();
       for (var row in resDataUser) {
-        arrTemp.add({
-          'kodeuser': row['kodeuser'],
-          'username': row['username'],
-          'nama': row['nama'],
-          'telepon': row['telepon']
-        });
+        UserModel2 userData = new UserModel2();
+        userData.kodeuser.value = row['kodeuser'];
+        userData.username.value = row['username'];
+        userData.nama.value = row['nama'];
+        userData.telepon.value = row['telepon'];
+        dataUser.add(userData.toJson());
       }
 
-      dataUser.addAll(arrTemp);
       totalpage.value = resDataPaging['totalpage'];
 
       dialogAlert.proggresDialogHide();
@@ -125,8 +119,7 @@ class UserListController extends GetxController {
 
   hapusData(index) async {
     try {
-      bool result = await dialogAlert.confirmDialog(
-          "KONFIRMASI HAPUS", "Hapus data ${dataUser[index]['nama']} ?");
+      bool result = await dialogAlert.confirmDialog("KONFIRMASI HAPUS", "Hapus data ${dataUser[index]['nama']} ?");
       print(result);
       if (result) {
         var ijson = new IJson();
@@ -138,8 +131,7 @@ class UserListController extends GetxController {
         dialogAlert.proggresDialogShow();
 
         var reqData = ijson.generateJson();
-        var res = await ih.sendDataAsync(
-            AppConfig.APP_URL, "user/delete", reqData, "", "");
+        var res = await ih.sendDataAsync(AppConfig.APP_URL, "user/delete", reqData, "", "");
 
         dialogAlert.proggresDialogHide();
 

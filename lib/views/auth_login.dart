@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reactive_forms/reactive_forms.dart';
+
+import 'package:flut_getx_dev/controllers/auth_controller.dart';
 
 class AuthLogin extends StatelessWidget {
-  const AuthLogin({Key? key}) : super(key: key);
+  AuthLogin({Key? key}) : super(key: key);
+
+  final AuthController ctrAuth = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -63,33 +68,38 @@ class AuthLogin extends StatelessWidget {
                               ),
                             ],
                           ),
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200))),
-                                child: const TextField(
-                                  decoration: InputDecoration(
-                                    hintText: "Email",
-                                    prefixIcon: Icon(Icons.people),
-                                    hintStyle: TextStyle(color: Colors.grey),
-                                    border: InputBorder.none,
+                          child: ReactiveForm(
+                            formGroup: ctrAuth.authService.authData,
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200))),
+                                  child: ReactiveTextField(
+                                    formControlName: 'username',
+                                    decoration: const InputDecoration(
+                                      hintText: "Username",
+                                      prefixIcon: Icon(Icons.people),
+                                      hintStyle: TextStyle(color: Colors.grey),
+                                      border: InputBorder.none,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200))),
-                                child: const TextField(
-                                  decoration: InputDecoration(
-                                    hintText: "Password",
-                                    prefixIcon: Icon(Icons.lock),
-                                    hintStyle: TextStyle(color: Colors.grey),
-                                    border: InputBorder.none,
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200))),
+                                  child: ReactiveTextField(
+                                    formControlName: 'password',
+                                    decoration: const InputDecoration(
+                                      hintText: "Password",
+                                      prefixIcon: Icon(Icons.lock),
+                                      hintStyle: TextStyle(color: Colors.grey),
+                                      border: InputBorder.none,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -115,7 +125,8 @@ class AuthLogin extends StatelessWidget {
                             ),
                           ),
                           onTap: () {
-                            Get.offNamed("/dashboard");
+                            // Get.offNamed("/dashboard");
+                            ctrAuth.onClickLogin();
                           },
                         ),
                         const SizedBox(

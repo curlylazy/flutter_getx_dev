@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 // import class function
 import 'package:flut_getx_dev/app/json.dart';
 import 'package:flut_getx_dev/app/config.dart';
-import 'package:flut_getx_dev/app/stringfunction.dart';
+import 'package:flut_getx_dev/app/Stringfunction.dart';
 import 'package:flut_getx_dev/app/dialog.dart';
 import 'package:flut_getx_dev/app/ihttpclientgetx.dart';
 
@@ -17,7 +17,6 @@ class ItemAEService extends GetxController {
   // init function
   var ih = new IHttpClientGetx();
   var dialogAlert = new DialogAlert();
-  var stringFunction = new StringFunction();
 
   var kodeKey = "";
   var actPage = "";
@@ -33,7 +32,7 @@ class ItemAEService extends GetxController {
     await initializeModul();
 
     print(kodeKey);
-    if (stringFunction.isNullOrEmpty(kodeKey)) {
+    if (StringFunction.isNullOrEmpty(kodeKey)) {
       SAVE_MODE = AppConfig.APP_SAVE_MODE_ADD;
       actPage = "item/tambah";
       judulPage = "Item Tambah";
@@ -67,25 +66,25 @@ class ItemAEService extends GetxController {
 
       print(itemData.toJson());
 
-      if (stringFunction.isNullOrEmpty(itemData.kodeitem.value)) {
+      if (StringFunction.isNullOrEmpty(itemData.kodeitem.value)) {
         ret.Number = 1;
         ret.Message = "[kodeitem] masih kosong.";
         return ret;
       }
 
-      if (stringFunction.isNullOrEmpty(itemData.kodeitem.value)) {
+      if (StringFunction.isNullOrEmpty(itemData.kodeitem.value)) {
         ret.Number = 1;
         ret.Message = "[namaitem] masih kosong.";
         return ret;
       }
 
-      if (stringFunction.isNullOrEmpty(itemData.harga.value)) {
+      if (StringFunction.isNullOrEmpty(itemData.harga.value)) {
         ret.Number = 1;
         ret.Message = "[harga] masih kosong.";
         return ret;
       }
 
-      if (stringFunction.isNullOrEmpty(itemData.kategori.value)) {
+      if (StringFunction.isNullOrEmpty(itemData.kategori.value)) {
         ret.Number = 1;
         ret.Message = "[kategori] masih kosong.";
         return ret;

@@ -2,7 +2,7 @@
 
 class StringFunction {
   // JSON Data File
-  isNullOrEmpty(val) {
+  static isNullOrEmpty(val) {
     bool iRes = true;
     if (val == null || val == '' || val == "null") {
       iRes = true;
@@ -12,16 +12,39 @@ class StringFunction {
     return iRes;
   }
 
-  filterString(val) {
-    var res = "";
-    res = val.toString();
-    return res;
+  static filterString(val) {
+    String sres = "";
+    if (!StringFunction.isNullOrEmpty(val)) {
+      try {
+        sres = val.toString();
+
+        if (sres == 'null') {
+          return "";
+        }
+
+        return sres;
+      } catch (e) {
+        print("ERROR readDataString :: ${e.toString()}");
+        return "";
+      }
+    } else {
+      return "";
+    }
   }
 
-  filterInt(val) {
-    var res = 0;
-    res = int.parse(val);
-    return res;
+  static filterInt(val) {
+    int sres = 0;
+    if (!StringFunction.isNullOrEmpty(val)) {
+      try {
+        sres = int.parse(val.toString());
+        return sres;
+      } catch (e) {
+        print("ERROR readDataInt :: ${e.toString()}");
+        return 0;
+      }
+    } else {
+      return 0;
+    }
   }
 
   // filterRupiah(val) {

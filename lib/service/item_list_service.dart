@@ -15,7 +15,6 @@ import 'package:flut_getx_dev/model/return_model.dart';
 
 class ItemListService extends GetxController {
   var ih = IHttpClientGetx();
-  var strFunction = StringFunction();
 
   var currentpage = 0.obs;
   var totalpage = 0.obs;
@@ -44,8 +43,7 @@ class ItemListService extends GetxController {
 
       var reqData = ijson.generateJson();
 
-      var res = await ih.sendDataAsync(
-          AppConfig.APP_URL, "item/list", reqData, "", "");
+      var res = await ih.sendDataAsync(AppConfig.APP_URL, "item/list", reqData, "", "");
 
       var resData = res;
       var resDataItem = resData['DataItem'];
@@ -61,13 +59,12 @@ class ItemListService extends GetxController {
       dataItem.clear();
       for (var row in resDataItem) {
         var itemData = ItemListModel();
-        itemData.kodeitem = strFunction.filterString(row['kodeitem']);
-        itemData.kategori = strFunction.filterString(row['kategori']);
-        itemData.namaitem = strFunction.filterString(row['namaitem']);
-        itemData.harga = strFunction.filterString(row['harga']);
-        itemData.keteranganitem =
-            strFunction.filterString(row['keteranganitem']);
-        itemData.gambaritem = strFunction.filterString(row['gambaritem']);
+        itemData.kodeitem = StringFunction.filterString(row['kodeitem']);
+        itemData.kategori = StringFunction.filterString(row['kategori']);
+        itemData.namaitem = StringFunction.filterString(row['namaitem']);
+        itemData.harga = StringFunction.filterString(row['harga']);
+        itemData.keteranganitem = StringFunction.filterString(row['keteranganitem']);
+        itemData.gambaritem = StringFunction.filterString(row['gambaritem']);
         dataItem.add(itemData.toJson());
       }
 
@@ -95,8 +92,7 @@ class ItemListService extends GetxController {
       ijson.createTable();
 
       var reqData = ijson.generateJson();
-      var res = await ih.sendDataAsync(
-          AppConfig.APP_URL, "item/delete", reqData, "", "");
+      var res = await ih.sendDataAsync(AppConfig.APP_URL, "item/delete", reqData, "", "");
 
       var resData = res;
       bool status = resData['status'];

@@ -17,7 +17,7 @@ class UserModel {
     required this.alamat,
   });
 
-  Map<String, dynamic> toJson() => {
+  toJson() => {
         'username': username,
         'password': password,
         'nama': nama,
