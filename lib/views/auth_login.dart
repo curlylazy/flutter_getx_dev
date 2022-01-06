@@ -15,11 +15,15 @@ class AuthLogin extends StatelessWidget {
       body: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-            gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-          Colors.blue.shade100,
-          Colors.blue.shade800,
-          Colors.blue.shade400
-        ])),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            colors: [
+              Colors.blue.shade100,
+              Colors.blue.shade800,
+              Colors.blue.shade400
+            ],
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

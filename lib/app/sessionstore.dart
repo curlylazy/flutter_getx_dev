@@ -4,83 +4,101 @@ import 'package:get_storage/get_storage.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-import 'package:flut_getx_dev/app/json.dart';
 import 'package:flut_getx_dev/app/config.dart';
 import 'package:flut_getx_dev/app/stringfunction.dart';
-import 'package:flut_getx_dev/app/dialog.dart';
 import 'package:flut_getx_dev/app/sqliteconnection.dart';
 
+// model
+import 'package:flut_getx_dev/model/return_model.dart';
+
 class SessionStore {
-  var errMsg = "";
-  var connStr = "";
-  var conDB;
-  SQLiteConnection ic = SQLiteConnection(AppConfig.APP_DB_FILE);
+  SQLiteConnection sqLite = SQLiteConnection(AppConfig.APP_DB_FILE);
 
-  getConnection() {
-    return conDB;
-  }
-
-  openDB() async {
+  cekSessionLogin() async {
     try {
-      int iRet = -1;
-      String errMsg = "";
+      bool isLogin = false;
+      var strSQL = "";
 
-      Database conDB = await openDatabase(connStr, version: 1);
+      strSQL = "SELECT * FROM tbl_session";
+      List res = await sqLite.onRawQuery(strSQL);
+
+      if (res.isNotEmpty) {
+        isLogin = true;
+        retriveSessionLogin(kodeuser: res[0]['kodeuser'], username: res[0]['username'], nama: res[0]['nama']);
+      }
+
+      return isLogin;
     } catch (e) {
-      print("KESALAHAN:: openDB() :: ${e.toString()}");
+      var ret = ReturnModel();
+      ret.Number = 1;
+      ret.Message = "cekSessionLogin() :: ${e.toString()}";
+      return ret;
     }
   }
 
-  Future<Database> openDBAsnyc() async {
-    var databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, connStr);
-    Database conDB = await openDatabase(path, version: 1);
-    return conDB;
+  retriveSessionLogin({kodeuser, username, nama}) {
+    GetStorage().write("kodeuser", kodeuser);
+    GetStorage().write("username", username);
+    GetStorage().write("nama", nama);
   }
 
-  onCreate(String sql) async {
+  removeSessionLogin() async {
     try {
-      var db = await openDBAsnyc();
-      await db.execute(sql);
+      var ret = ReturnModel();
+
+      bool isLogin = false;
+      var strSQL = "";
+
+      // hapus data terlebih dahulu
+      strSQL = "DELETE FROM tbl_session WHERE kodeuser = '${GetStorage().read("kodeuser")}'";
+      await sqLite.onRawDelete(strSQL);
+
+      ret.Number = 0;
+      return ret;
     } catch (e) {
-      print("KESALAHAN:: onCreate() :: ${e.toString()}");
+      var ret = ReturnModel();
+      ret.Number = 1;
+      ret.Message = "cekSessionLogin() :: ${e.toString()}";
+      return ret;
     }
   }
 
-  onInsert(String table, value) async {
+  setSessionLogin(res) async {
     try {
-      var db = await openDBAsnyc();
-      await db.insert(table, value);
-    } catch (e) {
-      print("KESALAHAN:: onInsert() :: ${e.toString()}");
-    }
-  }
+      var ret = ReturnModel();
 
-  onRawInsert(String sql) async {
-    try {
-      var db = await openDBAsnyc();
-      await db.rawInsert(sql);
-    } catch (e) {
-      print("KESALAHAN:: onRawInsert() :: ${e.toString()}");
-    }
-  }
+      res = res['DataUser'];
+      var kodeuser = res['kodeuser'];
+      var username = res['username'];
+      var nama = res['nama'];
 
-  onRawUpdate(String sql) async {
-    try {
-      var db = await openDBAsnyc();
-      await db.rawUpdate(sql);
-    } catch (e) {
-      print("KESALAHAN:: onRawUpdate() :: ${e.toString()}");
-    }
-  }
+      if (StringFunction.isNullOrEmpty(kodeuser)) {
+        ret.Number = 1;
+        ret.Message = "[kodeuser] masih kosong";
+        return ret;
+      }
 
-  onRawQuery(String sql) async {
-    try {
-      var db = await openDBAsnyc();
-      var res = await db.rawQuery(sql);
-      return res;
+      var strSQL = "";
+
+      strSQL = " CREATE TABLE IF NOT EXISTS tbl_session(kodeuser varchar(100), username varchar(100), nama varchar(100)); ";
+      await sqLite.onCreate(strSQL);
+
+      // hapus data terlebih dahulu
+      await sqLite.onRawDelete("DELETE FROM tbl_session WHERE kodeuser = '$kodeuser';");
+
+      // masukkan data user login
+      strSQL = "INSERT INTO tbl_session(kodeuser, username, nama) VALUES('$kodeuser', '$username', '$nama');";
+      await sqLite.onRawInsert(strSQL);
+
+      retriveSessionLogin(kodeuser: kodeuser, username: username, nama: nama);
+
+      ret.Number = 0;
+      return ret;
     } catch (e) {
-      print("KESALAHAN:: onSelect() :: ${e.toString()}");
+      var ret = ReturnModel();
+      ret.Number = 1;
+      ret.Message = "setSessionLogin() :: ${e.toString()}";
+      return ret;
     }
   }
 }

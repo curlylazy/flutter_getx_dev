@@ -1,6 +1,6 @@
-// ignore_for_file: unused_import, unnecessary_new
-
+import 'package:flut_getx_dev/app/returndata.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 // import class function
@@ -9,18 +9,18 @@ import 'package:flut_getx_dev/app/config.dart';
 import 'package:flut_getx_dev/app/stringfunction.dart';
 import 'package:flut_getx_dev/app/dialog.dart';
 import 'package:flut_getx_dev/app/ihttpclientgetx.dart';
+import 'package:flut_getx_dev/app/sessionstore.dart';
 
 // model
 import 'package:flut_getx_dev/model/auth_model.dart';
-
-// model
 import 'package:flut_getx_dev/model/item_model.dart';
 import 'package:flut_getx_dev/model/return_model.dart';
 
 class AuthService extends GetxController {
   // init function
-  var ih = new IHttpClientGetx();
-  var dialogAlert = new DialogAlert();
+  var ih = IHttpClientGetx();
+  var dialogAlert = DialogAlert();
+  var sessionStore = SessionStore();
 
   var kodeKey = "";
   var actPage = "";
@@ -33,7 +33,7 @@ class AuthService extends GetxController {
 
   onLogin() async {
     try {
-      var ret = new ReturnModel();
+      var ret = ReturnModel();
       ret.Number = 0;
       ret.Message = "";
       ret.Data = null;
@@ -50,7 +50,7 @@ class AuthService extends GetxController {
         return ret;
       }
 
-      var ijson = new IJson();
+      var ijson = IJson();
       ijson.newTable("DataHeader");
       ijson.addRowFromObject(authData.value);
       ijson.createTable();
@@ -58,7 +58,7 @@ class AuthService extends GetxController {
       var reqData = ijson.generateJson();
 
       var res = await ih.sendDataAsync(AppConfig.APP_URL, "auth/loginadmin", reqData, "", "");
-      print(res);
+      // print(res);
 
       var resData = res;
       bool status = resData['status'];
@@ -69,13 +69,43 @@ class AuthService extends GetxController {
         return ret;
       }
 
+      ReturnModel resSession = await sessionStore.setSessionLogin(res);
+      if (resSession.Number != 0) {
+        ret.Number = 1;
+        ret.Message = resSession.Message;
+        return ret;
+      }
+
       ret.Message = "halo, anda berhasil login kedalam sistem";
       return ret;
     } catch (e) {
       print("ERROR SERVICE :: ${e.toString()}");
-      var ret = new ReturnModel();
+      var ret = ReturnModel();
       ret.Number = 1;
       ret.Message = "ERROR SERVICE :: ${e.toString()}";
+      return ret;
+    }
+  }
+
+  onLogOut() async {
+    try {
+      var ret = ReturnModel();
+
+      ReturnModel resSession = await sessionStore.removeSessionLogin();
+      if (resSession.Number != 0) {
+        ret.Number = 1;
+        ret.Message = resSession.Message;
+        return ret;
+      }
+
+      ret.Number = 0;
+      ret.Message = "anda berhasil logout dari sistem";
+      return ret;
+    } catch (e) {
+      print("ERROR onLogOut :: ${e.toString()}");
+      var ret = ReturnModel();
+      ret.Number = 1;
+      ret.Message = "ERROR onLogOut :: ${e.toString()}";
       return ret;
     }
   }

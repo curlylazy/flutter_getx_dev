@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:flut_getx_dev/controllers/auth_controller.dart';
+
 class DashboardPage extends StatelessWidget {
   DashboardPage({Key? key}) : super(key: key);
+
+  final AuthController ctrAuth = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +24,7 @@ class DashboardPage extends StatelessWidget {
               children: [
                 menuData2('Data User', 'assets/images/014-customer service.png', '/user/list'),
                 menuData2('Data Pelanggan', 'assets/images/009-courier.png', '/pelanggan/list'),
+                menuData2('Data Item', 'assets/images/016-chicken bucket.png', '/item/list'),
                 menuLogOut2(),
               ],
             ),
@@ -121,7 +126,7 @@ class DashboardPage extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Get.offNamed("auth/login");
+        ctrAuth.onClickLogOut();
       },
     );
   }

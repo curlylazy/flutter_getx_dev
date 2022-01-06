@@ -58,7 +58,7 @@ class IJson {
   }
 
   generateJson() {
-    var str = jsonEncode(this.tablesArr);
+    var str = jsonEncode(tablesArr);
     return str;
   }
 

@@ -40,9 +40,28 @@ class AuthController extends GetxController {
         return;
       }
 
-      dialogAlert.snackbarSuccess(res.Message);
+      dialogAlert.toastSuccess(res.Message);
+      Get.offAllNamed("/dashboard");
     } catch (e) {
-      print("ERROR :: ${e.toString()}");
+      print("onClickLogin :: ${e.toString()}");
+      dialogAlert.toastError(e.toString());
+    }
+  }
+
+  onClickLogOut() async {
+    try {
+      dialogAlert.proggresDialogShow();
+      ReturnModel res = await authService.onLogOut();
+      dialogAlert.proggresDialogHide();
+
+      if (res.Number == 1) {
+        dialogAlert.alertDialog("KESALAHAN", res.Message);
+        return;
+      }
+      dialogAlert.toastSuccess(res.Message);
+      Get.offNamed("auth/login");
+    } catch (e) {
+      print("onClickLogOut :: ${e.toString()}");
       dialogAlert.toastError(e.toString());
     }
   }

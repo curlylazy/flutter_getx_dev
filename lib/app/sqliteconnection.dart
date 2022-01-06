@@ -10,11 +10,11 @@ class SQLiteConnection {
     connStr = fileLocation;
   }
 
-  GetConnection() {
+  getConnection() {
     return conDB;
   }
 
-  OpenDB() async {
+  openDB() async {
     try {
       int iRet = -1;
       String errMsg = "";
@@ -25,7 +25,7 @@ class SQLiteConnection {
     }
   }
 
-  Future<Database> OpenDBAsnyc() async {
+  Future<Database> openDBAsnyc() async {
     var databasesPath = await getDatabasesPath();
     String path = join(databasesPath, connStr);
     Database conDB = await openDatabase(path, version: 1);
@@ -34,7 +34,7 @@ class SQLiteConnection {
 
   onCreate(String sql) async {
     try {
-      var db = await OpenDBAsnyc();
+      var db = await openDBAsnyc();
       await db.execute(sql);
     } catch (e) {
       print("onCreate() :: ${e.toString()}");
@@ -43,7 +43,7 @@ class SQLiteConnection {
 
   onInsert(String table, value) async {
     try {
-      var db = await OpenDBAsnyc();
+      var db = await openDBAsnyc();
       await db.insert(table, value);
     } catch (e) {
       print("onInsert() :: ${e.toString()}");
@@ -52,7 +52,7 @@ class SQLiteConnection {
 
   onRawInsert(String sql) async {
     try {
-      var db = await OpenDBAsnyc();
+      var db = await openDBAsnyc();
       await db.rawInsert(sql);
     } catch (e) {
       print("onRawInsert() :: ${e.toString()}");
@@ -61,20 +61,46 @@ class SQLiteConnection {
 
   onRawUpdate(String sql) async {
     try {
-      var db = await OpenDBAsnyc();
+      var db = await openDBAsnyc();
       await db.rawUpdate(sql);
     } catch (e) {
       print("onRawUpdate() :: ${e.toString()}");
     }
   }
 
+  onRawDelete(String sql) async {
+    try {
+      var db = await openDBAsnyc();
+      await db.rawDelete(sql);
+    } catch (e) {
+      print("onRawDelete() :: ${e.toString()}");
+    }
+  }
+
   onRawQuery(String sql) async {
     try {
-      var db = await OpenDBAsnyc();
+      var db = await openDBAsnyc();
       var res = await db.rawQuery(sql);
       return res;
     } catch (e) {
       print("onSelect() :: ${e.toString()}");
+    }
+  }
+
+  tableExist(String tableName) async {
+    Database db = await openDBAsnyc();
+
+    String strSQL = "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = '" + tableName + "'; ";
+    var count = Sqflite.firstIntValue(await db.rawQuery(strSQL));
+
+    db.close();
+
+    if (count == null || int.parse(count.toString()) == 0) {
+      // print("tabel kosong");
+      return false;
+    } else {
+      // print("tabel ada");
+      return true;
     }
   }
 

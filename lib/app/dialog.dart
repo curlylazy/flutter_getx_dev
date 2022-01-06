@@ -138,14 +138,40 @@ class DialogAlert {
   }
 
   snackbarSuccess(String msg) {
-    Get.snackbar("INFORMASI", msg, snackPosition: SnackPosition.BOTTOM, icon: const Icon(Icons.error, color: Colors.white), backgroundColor: Colors.green, margin: const EdgeInsets.all(15), colorText: Colors.white, duration: const Duration(seconds: 6), isDismissible: true, dismissDirection: SnackDismissDirection.HORIZONTAL, forwardAnimationCurve: Curves.easeOutBack);
+    Get.snackbar(
+      "INFORMASI",
+      msg,
+      snackPosition: SnackPosition.BOTTOM,
+      icon: const Icon(Icons.error, color: Colors.white),
+      backgroundColor: Colors.green,
+      margin: const EdgeInsets.all(15),
+      colorText: Colors.white,
+      duration: const Duration(seconds: 6),
+      isDismissible: true,
+      dismissDirection: SnackDismissDirection.HORIZONTAL,
+      forwardAnimationCurve: Curves.easeOutBack,
+    );
   }
 
   toastError(String msg) {
-    Fluttertoast.showToast(msg: msg, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.red, textColor: Colors.white, fontSize: 16.0);
+    Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+    );
   }
 
   toastSuccess(String msg) {
-    Fluttertoast.showToast(msg: msg, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.green, textColor: Colors.white, fontSize: 16.0);
+    Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.green,
+      textColor: Colors.white,
+    );
   }
 }

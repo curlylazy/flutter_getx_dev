@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import './views/my_home_page.dart';
-import './views/auth_login.dart';
-import './views/user_ae.dart';
-import './views/user_list.dart';
-import './views/item_list.dart';
-import './views/item_ae.dart';
-import './views/dashboard.dart';
+import 'package:flut_getx_dev/views/my_home_page.dart';
+import 'package:flut_getx_dev/views/auth_login.dart';
+import 'package:flut_getx_dev/views/user_ae.dart';
+import 'package:flut_getx_dev/views/user_list.dart';
+import 'package:flut_getx_dev/views/item_list.dart';
+import 'package:flut_getx_dev/views/item_ae.dart';
+import 'package:flut_getx_dev/views/dashboard.dart';
+import 'package:flut_getx_dev/views/splashscreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
-      home: AuthLogin(),
+      home: SplashScreenSistem(),
       getPages: [
         GetPage(name: '/dashboard', page: () => DashboardPage()),
         GetPage(name: '/auth/login', page: () => AuthLogin()),
