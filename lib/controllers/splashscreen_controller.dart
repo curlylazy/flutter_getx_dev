@@ -14,8 +14,11 @@ class SplashScreenController extends GetxController {
   SessionStore sessionStore = SessionStore();
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+
+    await sessionStore.setupDB();
+
     Future.delayed(const Duration(seconds: 4), () {
       cekAuthLogin();
     });

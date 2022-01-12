@@ -36,6 +36,24 @@ class SessionStore {
     }
   }
 
+  setupDB() async {
+    try {
+      String strSQL = "";
+      var texist = await sqLite.tableExist("tbl_mobinfodb");
+      if (!texist) {
+        strSQL += "CREATE TABLE tbl_session (kodeuser varchar(100), username varchar(100), nama varchar(100) ); ";
+      }
+
+      if (strSQL != "") {
+        Database db = await sqLite.openDBAsnyc();
+        await db.execute(strSQL);
+        db.close();
+      }
+    } catch (e) {
+      print("ERROR setupDB :: ${e.toString()}");
+    }
+  }
+
   retriveSessionLogin({kodeuser, username, nama}) {
     GetStorage().write("kodeuser", kodeuser);
     GetStorage().write("username", username);
