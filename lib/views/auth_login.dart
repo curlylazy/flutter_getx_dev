@@ -27,31 +27,27 @@ class AuthLogin extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const SizedBox(
-              height: 80,
-            ),
+            const SizedBox(height: 80),
             Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: const [
-                  Text(
-                    "Login",
-                    style: TextStyle(color: Colors.white, fontSize: 40),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "Welcome Back",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
+                  Text("Login", style: TextStyle(color: Colors.white, fontSize: 40)),
+                  SizedBox(height: 10),
+                  Text("Welcome Back", style: TextStyle(color: Colors.white, fontSize: 18)),
                 ],
               ),
             ),
             const SizedBox(height: 20),
             Expanded(
               child: Container(
-                decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60))),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(60),
+                    topRight: Radius.circular(60),
+                  ),
+                ),
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(30),

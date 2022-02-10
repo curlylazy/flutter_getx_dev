@@ -30,19 +30,20 @@ class DialogAlert {
 
   alertDialog(String judul, String msg) {
     Get.dialog(
-        AlertDialog(
-          title: Text(judul, style: const TextStyle(fontSize: 12)),
-          content: Text(msg),
-          actions: <Widget>[
-            TextButton(
-              child: const Text("OK"),
-              onPressed: () {
-                Get.back();
-              },
-            )
-          ],
-        ),
-        barrierDismissible: false);
+      AlertDialog(
+        title: Text(judul, style: const TextStyle(fontSize: 12)),
+        content: Text(msg),
+        actions: <Widget>[
+          TextButton(
+            child: const Text("OK"),
+            onPressed: () {
+              Get.back();
+            },
+          )
+        ],
+      ),
+      barrierDismissible: false,
+    );
   }
 
   confirmDialog(String judul, String msg) async {
