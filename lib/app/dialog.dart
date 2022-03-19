@@ -135,7 +135,19 @@ class DialogAlert {
   }
 
   snackbarError(String msg) {
-    Get.snackbar("KESALAHAN", msg, snackPosition: SnackPosition.BOTTOM, icon: const Icon(Icons.error, color: Colors.white), backgroundColor: Colors.red, margin: const EdgeInsets.all(15), colorText: Colors.white, duration: const Duration(seconds: 6), isDismissible: true, dismissDirection: SnackDismissDirection.HORIZONTAL, forwardAnimationCurve: Curves.easeOutBack);
+    Get.snackbar(
+      "KESALAHAN",
+      msg,
+      snackPosition: SnackPosition.BOTTOM,
+      icon: const Icon(Icons.error, color: Colors.white),
+      backgroundColor: Colors.red,
+      margin: const EdgeInsets.all(15),
+      colorText: Colors.white,
+      duration: const Duration(seconds: 6),
+      isDismissible: true,
+      // dismissDirection: SnackDismissDirection.HORIZONTAL,
+      forwardAnimationCurve: Curves.easeOutBack,
+    );
   }
 
   snackbarSuccess(String msg) {
@@ -149,7 +161,7 @@ class DialogAlert {
       colorText: Colors.white,
       duration: const Duration(seconds: 6),
       isDismissible: true,
-      dismissDirection: SnackDismissDirection.HORIZONTAL,
+      // dismissDirection: SnackDismissDirection.HORIZONTAL,
       forwardAnimationCurve: Curves.easeOutBack,
     );
   }
